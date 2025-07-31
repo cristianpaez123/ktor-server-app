@@ -36,10 +36,9 @@ fun Application.configureRouting() {
             }
 
             post {
-                val taskRequest = call.receive<Task>()
-                val newTask = taskRequest.copy(id = UUID.randomUUID().toString())
-                TaskRepository.addTask(newTask)
-                call.respond(HttpStatusCode.Created, newTask)
+                val taskRequest = call.receive<Task>() // ya contiene el id enviado por el cliente
+                TaskRepository.addTask(taskRequest)
+                call.respond(HttpStatusCode.Created, taskRequest)
             }
 
             put("/{id}") {
